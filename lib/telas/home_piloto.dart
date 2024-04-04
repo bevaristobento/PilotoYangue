@@ -8,26 +8,22 @@ class HomePiloto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold
-    (
-      appBar: AppBar(title: const Text("tela inicial"),),
-      drawer:  Drawer
-      (
-        child:ListView(
-          children: 
-        [
-          ListTile
-          (
-            leading:const Icon(Icons.logout),
-            title: const Text("Deslogar"),
-            onTap: ()
-            {
-              AuthenticionServico().deslogar();
-              
-            },
-          ),
-        ],
-        ) ,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("tela inicial"),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Deslogar"),
+              onTap: () {
+                AuthenticionServico().deslogar();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

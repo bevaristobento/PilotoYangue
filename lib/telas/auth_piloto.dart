@@ -1,4 +1,4 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,289 +15,235 @@ class AuthenticionPiloto extends StatefulWidget {
   State<AuthenticionPiloto> createState() => _AuthenticionPilotoState();
 }
 
- bool querorEntrar =true;
+bool querorEntrar = true;
 
- final _formkey =GlobalKey<FormState>();
+final _formkey = GlobalKey<FormState>();
 
- final TextEditingController   _emailController = TextEditingController();
- final TextEditingController  _senhaController = TextEditingController();
- final TextEditingController  _nomeController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _senhaController = TextEditingController();
+final TextEditingController _nomeController = TextEditingController();
 
- AuthenticionServico _authServico = AuthenticionServico();
+AuthenticionServico _authServico = AuthenticionServico();
 
 class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
   @override
-  Widget build(BuildContext context)
-  {
-    return  Scaffold
-    (
+  Widget build(BuildContext context) {
+    return Scaffold(
       backgroundColor: const Color.fromARGB(255, 248, 225, 20),
-
-      body:Stack
-      (
-        children: 
-        [
-          Container
-
-          (
-            decoration: const BoxDecoration
-
-            (
-                gradient: LinearGradient
-
-              (begin: Alignment.topCenter,
-               end: Alignment.bottomLeft,
-                      colors: 
-
-                    [
-                      CoresPiloto.amarelosuperior,
-                      CoresPiloto.amareloinferior,
-                    ]
-
-              ),
-
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    CoresPiloto.amarelosuperior,
+                    CoresPiloto.amareloinferior,
+                  ]),
             ),
-
           ),
-
           Padding(
             padding: const EdgeInsets.all(14.0),
             child: Form(
-              key:_formkey ,
+              key: _formkey,
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: 
-                    [
-                      Image.asset('assets/3DD.png',height: 280,),
-                  
-                     const SizedBox(height: 0,),
-                      
-                     
-                    TextFormField
-                    (
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: 
-                      getAuthenticationInputDecoration("email"),
-                      validator: (String? value) 
-                      {
-                        if (value == null) 
-                        {
-                         return "O este não pode estar vazio" ;
-                        }
-
-                        if (value.length<5) 
-                        {
-                          return "O e-mail é muito curto ";
-          
-                        }
-
-                          if (!value.contains("@")) 
-                        {
-                          return "O e-mail não é válido ";
-          
-                        }
-                        return  null;
-                      },
+                    children: [
+                      Image.asset(
+                        'assets/3DD.png',
+                        height: 280,
                       ),
-                    
-            
-                   const SizedBox(height: 8,),
-                  
-                     TextFormField
-                     (
-                      controller: _senhaController,
-                          decoration: getAuthenticationInputDecoration("senha"),
-                          obscureText: true,
-
-                               validator: (String? value) 
-                      {
-                        if (value == null) 
-                        {
-                         return "O este não pode estar vazio" ;
-                        }
-
-                        if (value.length<5) 
-                        {
-                          return "A senha é muito curta ";
-          
-                        }
-
-                        return  null;
-                      },
-                     ),
-            
-                      const SizedBox(height: 8,),
-                  
-                      Visibility(visible: !querorEntrar,child: Column 
-                      (
-                        children: 
-                         [
-                          
-                       
-                          TextFormField
-                          (
-                            controller: _nomeController,
-                            decoration:
-                            getAuthenticationInputDecoration("nome"),
-
-                            validator: (String? value) 
-                      {
-                        if (value == null) 
-                        {
-                         return "O este não pode estar vazio" ;
-                        }
-
-                        if (value.length<5) 
-                        {
-                          return "O nome é muito curto ";
-          
-                        }
-
-                        return  null;
-                      },
-                            
-                          ),
-                  
-                  
-                         ],
+                      const SizedBox(
+                        height: 0,
                       ),
-                      ),
-                  
-                       const SizedBox(height: 12,),
-                  
-                      ElevatedButton
-                        (
-                            onPressed: ()
-                            {
-                              botaoPrincipalClicado();
-                             Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePiloto(),)
-                             );
-                            },
-                             style: ButtonStyle
-                             (
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                      TextFormField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: getAuthenticationInputDecoration("email"),
+                        validator: (String? value) {
+                          if (value == null) {
+                            return "O este não pode estar vazio";
+                          }
 
-                              overlayColor: MaterialStateProperty.resolveWith<Color>
-                              (
-                                  
-                                  (Set<MaterialState>states)
-                                {
-                                      if (states.contains(MaterialState.pressed)
-                                      ) 
-                                          {
-                                            return const Color.fromARGB(179, 82, 55, 236);
-                                          }
-                                            return Colors.black;
-                                },
-                              ), 
-                                   ),
-                            child:
-                  
-                            Text
-                            (
-                              (querorEntrar)?"Entrar" : "Cadastrar",style: const TextStyle(color: Color.fromARGB(255, 255, 251, 251)),
-                            )
-                        ),
-                  
-                        const Divider(),
-                  
-                        TextButton(onPressed: ()
-                        {
-                          setState(() 
-                            {
-                             querorEntrar = !querorEntrar; 
-                            }
-                            );
+                          if (value.length < 5) {
+                            return "O e-mail é muito curto ";
+                          }
+
+                          if (!value.contains("@")) {
+                            return "O e-mail não é válido ";
+                          }
+                          return null;
                         },
-                  
-                        child: 
-                  
-                         Text
-                        (
-                          (querorEntrar)?"Ainda não tens conta ? cadastra-se": "Já tens uma conta? Entrar", style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextFormField(
+                        controller: _senhaController,
+                        decoration: getAuthenticationInputDecoration("senha"),
+                        obscureText: true,
+                        validator: (String? value) {
+                          if (value == null) {
+                            return "O este não pode estar vazio";
+                          }
+
+                          if (value.length < 5) {
+                            return "A senha é muito curta ";
+                          }
+
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Visibility(
+                        visible: !querorEntrar,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _nomeController,
+                              decoration:
+                                  getAuthenticationInputDecoration("nome"),
+                              validator: (String? value) {
+                                if (value == null) {
+                                  return "O este não pode estar vazio";
+                                }
+
+                                if (value.length < 5) {
+                                  return "O nome é muito curto ";
+                                }
+
+                                return null;
+                              },
+                            ),
+                          ],
                         ),
-                  
-                    
-                  
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            var resposta = await botaoPrincipalClicado();
+                            if (resposta != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePiloto(),
+                                  ));
+                            }
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return const Color.fromARGB(179, 82, 55, 236);
+                                }
+                                return Colors.black;
+                              },
+                            ),
+                          ),
+                          child: Text(
+                            (querorEntrar) ? "Entrar" : "Cadastrar",
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 251, 251)),
+                          )),
+                      const Divider(),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            querorEntrar = !querorEntrar;
+                          });
+                        },
+                        child: Text(
+                          (querorEntrar)
+                              ? "Ainda não tens conta ? cadastra-se"
+                              : "Já tens uma conta? Entrar",
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                        ),
+                      ),
                     ],
-                  
                   ),
                 ),
               ),
-            
             ),
           ),
         ],
-
       ),
-
     );
-    
   }
 
-  botaoPrincipalClicado()
-    {
-      String nome = _nomeController.text;
-      String email = _emailController.text;
-      String senha = _senhaController.text;
-      
-      if (_formkey.currentState!.validate()) 
-      {
-        if (querorEntrar) 
+  Future<UserCredential?> botaoPrincipalClicado() async {
+    String nome = _nomeController.text;
+    String email = _emailController.text;
+    String senha = _senhaController.text;
 
-        { // processos & Chamado da função e  de login
-         print("Entrada Validada");
+    if (_formkey.currentState!.validate()) {
+      if (querorEntrar) {
+        // processos & Chamado da função e  de login
+        print("Entrada Validada");
 
-          _authServico.logarUsuarios(email: email, senha: senha).then
-          (
-              (String? erro)
-            {
-              if (erro != null) 
-              {
-                // voltou com erro 
-                mostrarSnackBar(context: context, texto: erro);
-              }
-              
-            } 
-          );
-          // processos & Chamado da função e  de login
-        }
+        var resultado = await _authServico
+            .logarUsuarios(email: email, senha: senha)
+            .onError((FirebaseAuthException error, stackTrace) {
+          var msg = "";
+          if (error.code == "email-already-in-use") {
+            msg = "Email Já em Uso";
+          }
+          if (error.code == "weak-password") {
+            msg = "Senha Fraca demais,use pelo menos 6 caracteres  ";
+          }
+          if (error.code == "wrong-password") {
+            msg = "Palavra passe errada";
+          }
 
+          mostrarSnackBar(context: context, texto: msg);
+          return null;
+        });
 
+        return resultado;
+        // processos & Chamado da função e  de login
+      } else {
+        // processos & Chamado da função de Cadastro
 
+        print("Cadastro Validado");
 
-        
-         else 
-        {// processos & Chamado da função de Cadastro
+        print(
+            "${_emailController.text},${_senhaController.text},${_nomeController.text},");
 
-          print("Cadastro Validado");
-          
-          print("${_emailController.text},${_senhaController.text},${_nomeController.text},");
+        var resposta = _authServico
+            .cadastrarUsuario(nome: nome, senha: senha, email: email.trim())
+            .onError((FirebaseAuthException error, stackTrace) {
+          var msg = "";
+          if (error.code == "email-already-in-use") {
+            msg = "Email Já em Uso";
+          }
+          if (error.code == "weak-password") {
+            msg = "Senha Fraca demais,use pelo menos 6 caracteres  ";
+          }
+          if (error.code == "wrong-password") {
+            msg = "Palavra passe errada";
+          }
 
-         _authServico.cadastrarUsuario(nome: nome, senha: senha, email: email.trim()).then
-         (
-              (String? erro)
-            {
-              if (erro != null) 
-              {
-              // voltou com erro  
-              mostrarSnackBar(context: context, texto: erro);
-              }
-            },
-         );
-         // processos & Chamado da função de Cadastro
-        }
+          mostrarSnackBar(context: context, texto: msg);
+        });
+
+        return resposta;
+
+        // processos & Chamado da função de Cadastro
       }
-
-      else
-      
-      {
-        print("Form Inválido");
-      }
+    } else {
+      print("Form Inválido");
+      return null;
     }
-
+  }
 }
