@@ -1,0 +1,42 @@
+name: piloto_yangue1
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0-279.0.dev <4.0.0'
+
+
+dependencies:
+
+  flutter:
+    sdk: flutter
+
+  flutter_native_splash:  
+
+
+  cupertino_icons: ^1.0.6
+  firebase_core: ^2.25.5
+  firebase_auth: ^4.17.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^3.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+    # flutter_native_splash-development.yaml
+#flutter_native_splash:
+ # color: "#e0f8ff"
+ # image: assets/3DDD.png
+    
