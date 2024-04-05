@@ -222,7 +222,9 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
 
         var resposta = _authServico
             .cadastrarUsuario(nome: nome, senha: senha, email: email.trim())
-            .onError((FirebaseAuthException error, stackTrace) {
+            .onError((FirebaseAuthException error, stackTrace) 
+            // ignore: body_might_complete_normally_nullable
+            {
           var msg = "";
           if (error.code == "email-already-in-use") {
             msg = "Email Já em Uso";
