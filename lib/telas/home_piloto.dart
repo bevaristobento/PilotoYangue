@@ -64,7 +64,7 @@ class HomePiloto extends StatelessWidget {
         final local = context.watch<PostoController>();
 
         String mensagem =local.erro == ''
-        ? 'Latitude: $local.lat | longitude: $local.long'
+        ? 'Latitude: ${local.lat} | longitude: ${local.long}'
          : local.erro;
 
          return Center(child: Text(mensagem),
