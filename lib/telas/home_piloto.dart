@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
+import 'package:piloto_yangue1/comun/postos_controlos.dart';
 import 'package:piloto_yangue1/servicos/auth_servico.dart';
+import 'package:provider/provider.dart';
 
 class HomePiloto extends StatelessWidget {
   const HomePiloto({super.key});
@@ -18,9 +20,6 @@ class HomePiloto extends StatelessWidget {
             const Text("Piloto Yangue",style: TextStyle(fontWeight: FontWeight.bold ),),
           ],
         )
-       
-        
-        
       ),
       drawer: Drawer(backgroundColor: const Color.fromARGB(255, 228, 231, 6),
         child: ListView(
@@ -58,6 +57,20 @@ class HomePiloto extends StatelessWidget {
           ],
         ),
       ),
+    body:ChangeNotifierProvider<PostoController>
+    (
+      create: (context) => PostoController(),
+      child: Builder(builder: (context) {
+        final local = context.watch<PostoController>();
+
+        String mensagem =local.erro == ''
+        ? 'Latitude: $local.lat | longitude: $local.long'
+         : local.erro;
+
+         return Center(child: Text(mensagem),
+         );
+      })
+    ),
     );
   }
 }

@@ -30,6 +30,16 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+   
+    <!-- Permissão para acessar a localização precisa do usuário -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- Permissão para acessar a localização aproximada do usuário (opcional) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- Permissão para acessar a localização do usuário em segundo plano (para Android 10 e superior) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.

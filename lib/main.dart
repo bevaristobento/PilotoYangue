@@ -1,9 +1,14 @@
+// ignore: unused_import
+import 'package:provider/provider.dart';
+// ignore: unused_import
+import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:piloto_yangue1/telas/auth_piloto.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:piloto_yangue1/telas/home_piloto.dart';
 import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
