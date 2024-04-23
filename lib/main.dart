@@ -1,6 +1,8 @@
 // ignore: unused_import
 import 'package:provider/provider.dart';
 // ignore: unused_import
+import 'package:flutter_map/flutter_map.dart';
+// ignore: unused_import
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,10 @@ import 'package:piloto_yangue1/telas/auth_piloto.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:piloto_yangue1/telas/home_piloto.dart';
 import 'firebase_options.dart';
+// ignore: unused_import
+import 'package:latlong2/latlong.dart';
+// ignore: unused_import
+import 'package:latlong2/spline.dart';
 
 
 void main() async {
@@ -41,7 +47,7 @@ class RoteadotelaPiloto extends StatelessWidget {
     {
       if (snapshot.hasData) 
       {// se o user está chegando ou logado vai pra tela homepiloto
-       return const HomePiloto();
+       return  HomePiloto();
       }
       else
       {// se o user não está chegando ou logado vai pra tela AutenticionPiloto
