@@ -1,10 +1,17 @@
+// ignore_for_file: must_be_immutable
+
+// ignore: unused_import
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:piloto_yangue1/componentes/decoration.dart';
 import 'package:piloto_yangue1/comun/postos_controlos.dart';
 import 'package:piloto_yangue1/servicos/auth_servico.dart';
+// ignore: unused_import
 import 'package:provider/provider.dart';
 
 class HomePiloto extends StatelessWidget {
@@ -82,7 +89,45 @@ class HomePiloto extends StatelessWidget {
                 ),
               ],
             );
-          }),
+          }
+          ),
+
+
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async{
+              await showModalBottomSheet(
+                context: context,
+                 builder:(ctx){
+                return  SizedBox
+                (height: 300,
+                width: double.infinity,
+
+                child: Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Column(
+                   children: [
+                    const SizedBox(height: 12,),
+
+                    TextFormField(keyboardType: TextInputType.emailAddress,decoration:getAuthenticationInputDecoration("Origem"),),
+
+                    const SizedBox(height: 8,),
+
+                    TextFormField(keyboardType: TextInputType.emailAddress,decoration:getAuthenticationInputDecoration("Destino"),),
+
+                   const SizedBox(height: 12,),
+
+                    ElevatedButton(onPressed: (){}, 
+                    child:const Text("piloto"),
+                    )
+                   ],
+                  ),
+                ),
+                );
+              }
+              );
+            },
+            child:const Icon(Icons.travel_explore),
+            ),
     );
   }
 }
