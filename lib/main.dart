@@ -1,4 +1,5 @@
 // ignore: unused_import
+import 'package:piloto_yangue1/telas/escolha.dart';
 import 'package:provider/provider.dart';
 // ignore: unused_import
 import 'package:flutter_map/flutter_map.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       
      
-      home:AuthenticionPiloto() 
+      home:EscolhaOpcao()
     );
   }
 }

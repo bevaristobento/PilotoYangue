@@ -15,12 +15,12 @@ import 'package:piloto_yangue1/servicos/auth_servico.dart';
 import 'package:provider/provider.dart';
 
 class HomePiloto extends StatelessWidget {
-   HomePiloto({super.key});
+  HomePiloto({super.key});
 
   //tem de chamar uma função para pegar a  posição do dispotivo
   //~
 
-  PostoController _controller=PostoController();
+  PostoController _controller = PostoController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,57 +77,92 @@ class HomePiloto extends StatelessWidget {
         ),
       ),
       body: ListenableBuilder(
-          listenable:  _controller,
-          builder: (context,widget) {
-
+          listenable: _controller,
+          builder: (context, widget) {
             return FlutterMap(
-              
-              options: MapOptions(initialZoom: 10,initialCenter: LatLng(_controller.lat,_controller.long)),
+              options: MapOptions(
+                  initialZoom: 10,
+                  initialCenter: LatLng(_controller.lat, _controller.long)),
               children: [
                 TileLayer(
                   urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 ),
               ],
             );
-          }
-          ),
-
-
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async{
-              await showModalBottomSheet(
-                context: context,
-                 builder:(ctx){
-                return  SizedBox
-                (height: 300,
-                width: double.infinity,
-
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Column(
-                   children: [
-                    const SizedBox(height: 12,),
-
-                    TextFormField(keyboardType: TextInputType.emailAddress,decoration:getAuthenticationInputDecoration("Origem"),),
-
-                    const SizedBox(height: 8,),
-
-                    TextFormField(keyboardType: TextInputType.emailAddress,decoration:getAuthenticationInputDecoration("Destino"),),
-
-                   const SizedBox(height: 12,),
-
-                    ElevatedButton(onPressed: (){}, 
-                    child:const Text("piloto"),
-                    )
-                   ],
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await showModalBottomSheet(
+              context: context,
+              builder: (ctx) {
+                return SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          decoration:
+                              getAuthenticationInputDecoration("Origem"),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          decoration:
+                              getAuthenticationInputDecoration("Destino"),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.yellow,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 50,
+                                vertical: 15,
+                              )),
+                          onPressed: () {},
+                          child: const Text(
+                            "piloto",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 59, 59),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 15,
+                              )),
+                          onPressed: () {},
+                          child: const Text(
+                            "Cancelar",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
                 );
-              }
-              );
-            },
-            child:const Icon(Icons.travel_explore),
-            ),
+              });
+        },
+        child: const Icon(Icons.travel_explore),
+      ),
     );
   }
 }
