@@ -1,30 +1,13 @@
-// ignore_for_file: must_be_immutable
-
-// ignore: unused_import, avoid_web_libraries_in_flutter
-import 'dart:js';
 import 'package:flutter/material.dart';
-// ignore: unnecessary_import
-import 'package:flutter/widgets.dart';
 import 'package:piloto_yangue1/componentes/decoration.dart';
-// ignore: unused_import
-import 'package:piloto_yangue1/servicos/auth_servico.dart';
-import 'package:piloto_yangue1/telas/auth_piloto.dart';
-import 'package:piloto_yangue1/telas/contas.dart';
-import 'package:piloto_yangue1/telas/registro.dart';
-import 'package:piloto_yangue1/telas/servi%C3%A7o_carga.dart';
-import 'package:piloto_yangue1/telas/sobre.dart';
-// ignore: unused_import
-import 'package:provider/provider.dart';
-// ignore: unused_import, depend_on_referenced_packages
+class Sobre extends StatelessWidget {
+  const Sobre({super.key});
 
-class HomePiloto extends StatelessWidget {
-  //tem de chamar uma função para pegar a  posição do dispotivo
-  //~
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 228, 231, 6),
+      appBar: AppBar(
+         backgroundColor: const Color.fromARGB(255, 228, 231, 6),
             title: Row(
               children: [
                 Image.asset(
@@ -47,30 +30,28 @@ class HomePiloto extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.local_shipping_outlined),
                 title: const Text("Serviços de cargas"),
-                onTap: () {  Navigator.push(context, MaterialPageRoute(builder:(context) => ServicosCargas()));},
+                onTap: () {},
               ),
               ListTile(
                 leading: const Icon(Icons.app_registration_outlined),
                 title: const Text("Registros"),
-                onTap: () {  Navigator.push(context, MaterialPageRoute(builder:(context) => Registros()));},
+                onTap: () {},
               ),
               ListTile(
                 leading: const Icon(Icons.account_circle_outlined),
                 title: const Text("Conta"),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder:(context) => Contas()));
-                },
+                onTap: () {},
               ),
               ListTile(
                 leading: const Icon(Icons.info_outlined),
                 title: const Text("Sobre"),
-                onTap: () {  Navigator.push(context, MaterialPageRoute(builder:(context) => Sobre()));},
+                onTap: () {},
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text("Deslogar"),
                 onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticionPiloto()));
+            //    Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticionPiloto()));
                 },
               ),
             ],
@@ -105,7 +86,7 @@ class HomePiloto extends StatelessWidget {
                               TextFormField(
                                 keyboardType: TextInputType.emailAddress,
                                 decoration:
-                                    getAuthenticationInputDecoration("Destino"),
+                                   getAuthenticationInputDecoration("Destino"),
                               ),
                               const SizedBox(
                                 height: 12,
@@ -137,7 +118,7 @@ class HomePiloto extends StatelessWidget {
                                       vertical: 15,
                                     )),
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePiloto() ));
+                                //  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePiloto() ));
                                 },
                                 child: const Text(
                                   "Cancelar",
@@ -156,6 +137,6 @@ class HomePiloto extends StatelessWidget {
                 child: const Icon(Icons.travel_explore),
               ),
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        );
+    );
   }
 }

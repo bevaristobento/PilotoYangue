@@ -29,7 +29,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 248, 225, 20),
+      backgroundColor: Color.fromARGB(255, 245, 244, 235),
       body: Stack(
         children: [
           Container(
@@ -54,11 +54,11 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Image.asset(
-                        'assets/3DD.png',
-                        height: 280,
+                        'assets/Group161.png',
+                        height: 170,
                       ),
                       const SizedBox(
-                        height: 0,
+                        height: 30,
                       ),
                       TextFormField(
                         controller: _emailController,
@@ -140,12 +140,12 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Color.fromARGB(255, 253, 250, 46)),
+                                MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 187, 0)),
                             overlayColor:
                                 MaterialStateProperty.resolveWith<Color>(
                               (Set<MaterialState> states) {
                                 if (states.contains(MaterialState.pressed)) {
-                                  return Color.fromARGB(255, 135, 236, 236);                               }
+                                  return Color.fromARGB(255, 221, 252, 252);                               }
                                 return Color.fromARGB(255, 253, 250, 46);
                               },
                             ),
@@ -153,7 +153,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                           child: Text(
                             (querorEntrar) ? "Entrar" : "Cadastrar",
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 3, 3, 3)),
+                                color: Color.fromARGB(255, 3, 3, 3),fontWeight: FontWeight.bold),
                           )),
                       const Divider(),
                       TextButton(
@@ -167,7 +167,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               ? "Ainda não tens conta ? cadastra-se"
                               : "Já tens uma conta? Entrar",
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 253, 250, 46)),
+                              color: Color.fromARGB(255, 3, 3, 3),fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
