@@ -25,7 +25,7 @@ class _EscolhaOpcaoState extends State<EscolhaOpcao> {
             height: double.infinity,
           ),
           Container(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withOpacity(0.8),
              width: double.infinity,
             height: double.infinity,
           ),
