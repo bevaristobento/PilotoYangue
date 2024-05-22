@@ -14,15 +14,16 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^6.1.2
-  geolocator: ^11.0.0
   latlong2: ^0.9.1
   flutter_native_splash:  
-
+  flutter_map_location_marker: any
+ 
 
   cupertino_icons: ^1.0.6
   flutter_map: any
   firebase_core: ^2.25.5
   firebase_auth: ^4.17.6
+  location: ^6.0.2
   
 
 dev_dependencies:
@@ -39,8 +40,8 @@ flutter:
   assets:
     - assets/
 
-    # flutter_native_splash-development.yaml
+    #flutter_native_splash-development.yaml
 #flutter_native_splash:
  # color: "#e0f8ff"
- # image: assets/3DDD.png
+ # image: assets/Group.png
     

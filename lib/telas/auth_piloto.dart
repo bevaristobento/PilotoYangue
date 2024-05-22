@@ -140,21 +140,20 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
+                                MaterialStateProperty.all<Color>(Color.fromARGB(255, 253, 250, 46)),
                             overlayColor:
                                 MaterialStateProperty.resolveWith<Color>(
                               (Set<MaterialState> states) {
                                 if (states.contains(MaterialState.pressed)) {
-                                  return const Color.fromARGB(179, 82, 55, 236);
-                                }
-                                return Colors.black;
+                                  return Color.fromARGB(255, 135, 236, 236);                               }
+                                return Color.fromARGB(255, 253, 250, 46);
                               },
                             ),
                           ),
                           child: Text(
                             (querorEntrar) ? "Entrar" : "Cadastrar",
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 251, 251)),
+                                color: Color.fromARGB(255, 3, 3, 3)),
                           )),
                       const Divider(),
                       TextButton(
@@ -168,7 +167,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               ? "Ainda não tens conta ? cadastra-se"
                               : "Já tens uma conta? Entrar",
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
+                              color: Color.fromARGB(255, 253, 250, 46)),
                         ),
                       ),
                     ],
