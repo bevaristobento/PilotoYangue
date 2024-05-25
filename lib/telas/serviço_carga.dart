@@ -19,7 +19,7 @@ class ServicosCargas extends StatelessWidget {
                   width: 8,
                 ),
                 const Text(
-                  "Piloto Yangue",
+                  "Serviço de Cargas",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],

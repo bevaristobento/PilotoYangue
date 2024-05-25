@@ -17,7 +17,7 @@ dependencies:
   latlong2: ^0.9.1
   flutter_native_splash:  
   flutter_map_location_marker: any
- 
+  google_sign_in: ^6.0.0
 
   cupertino_icons: ^1.0.6
   flutter_map: any

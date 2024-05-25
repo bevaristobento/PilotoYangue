@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:piloto_yangue1/componentes/decoration.dart';
 import 'package:piloto_yangue1/comun/cores_piloto.dart';
 import 'package:piloto_yangue1/comun/my_snackbar.dart';
@@ -134,26 +137,29 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>  HomePiloto(),
+                                    builder: (context) => HomePiloto(),
                                   ));
                             }
                           },
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 187, 0)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 255, 187, 0)),
                             overlayColor:
                                 MaterialStateProperty.resolveWith<Color>(
                               (Set<MaterialState> states) {
                                 if (states.contains(MaterialState.pressed)) {
-                                  return Color.fromARGB(255, 221, 252, 252);                               }
-                                return Color.fromARGB(255, 253, 250, 46);
+                                  return const Color.fromARGB(
+                                      255, 221, 252, 252);
+                                }
+                                return const Color.fromARGB(255, 253, 250, 46);
                               },
                             ),
                           ),
                           child: Text(
                             (querorEntrar) ? "Entrar" : "Cadastrar",
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 3, 3, 3),fontWeight: FontWeight.bold),
+                                color: Color.fromARGB(255, 3, 3, 3),
+                                fontWeight: FontWeight.bold),
                           )),
                       const Divider(),
                       TextButton(
@@ -167,9 +173,40 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               ? "Ainda não tens conta ? cadastra-se"
                               : "Já tens uma conta? Entrar",
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 3, 3, 3),fontWeight: FontWeight.bold),
+                              color: Color.fromARGB(255, 3, 3, 3),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
+                      const Divider(),
+                      ElevatedButton.icon(
+                        icon: Image.asset(
+                          'assets/logo.png',
+                          height: 24,
+                          width: 24,
+                        ),
+                        label: Text(
+                          (querorEntrar)
+                              ? "Entrar com a google"
+                              : "Cadastra-se com a google",
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 3, 3, 3),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          var User = await _signInWithGoogle();
+                          if (User != null) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePiloto(),
+                                ));
+                          }
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromARGB(255, 248, 248, 248),
+                        )),
+                      )
                     ],
                   ),
                 ),
@@ -179,6 +216,25 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
         ],
       ),
     );
+  }
+
+  Future<User?> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return null;
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      return userCredential.user;
+    } catch (e) {
+      print("Existe um erro");
+      return null;
+    }
   }
 
   Future<UserCredential?> botaoPrincipalClicado() async {
@@ -221,9 +277,9 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
 
         var resposta = _authServico
             .cadastrarUsuario(nome: nome, senha: senha, email: email.trim())
-            .onError((FirebaseAuthException error, stackTrace) 
-            // ignore: body_might_complete_normally_nullable
-            {
+            .onError((FirebaseAuthException error, stackTrace)
+                // ignore: body_might_complete_normally_nullable
+                {
           var msg = "";
           if (error.code == "email-already-in-use") {
             msg = "Email Já em Uso";
