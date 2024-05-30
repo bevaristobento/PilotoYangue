@@ -207,13 +207,18 @@ class HomePiloto extends StatelessWidget {
         shape: const CircularNotchedRectangle(),
         color: Colors.yellowAccent,
         child: IconTheme(
-          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+          data: IconThemeData(color: Colors.black),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
+                Column(mainAxisSize: MainAxisSize.min,
+                  children: [
+
+              
+               Column(mainAxisSize: MainAxisSize.min,
+                children: [ IconButton(
                     icon: const Icon(Icons.home),
                     onPressed: () {
                       Navigator.push(
@@ -222,7 +227,12 @@ class HomePiloto extends StatelessWidget {
                             builder: (context) => HomePiloto(),
                           ));
                     }),
-                     IconButton(
+                 const   Text("Home",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
+  ],),
+  ],),
+  
+                     Column(mainAxisSize: MainAxisSize.min,
+                      children: [  IconButton(
                     icon: const Icon(Icons.local_shipping),
                     onPressed: () {
                       Navigator.push(
@@ -230,25 +240,33 @@ class HomePiloto extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => ServicosCargas()));
                     }),
+                    const Text("S. Cargas",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
+                    ],),
                      const SizedBox(
                   width: 24,
                 ),
-                IconButton(
+               Column(mainAxisSize: MainAxisSize.min,
+                children: [ IconButton(
                     icon: const Icon(Icons.edit_document),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Registros()));
                     }),
+                     const Text("Registros",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
+                    ],),
                  const SizedBox(
                   width: 24,
                 ),
-                IconButton(
+               Column(mainAxisSize: MainAxisSize.min,
+                children: [ IconButton(
                     icon: const Icon(Icons.person),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Contas()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Contas()));
                     }),
-                IconButton(
+                    const Text("Perfil",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
+                    ],),
+              Column(mainAxisSize: MainAxisSize.min,
+                children: [  IconButton(
                     icon: const Icon(Icons.info),
                     onPressed: () {
                       Navigator.push(
@@ -256,6 +274,8 @@ class HomePiloto extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => Sobre()));
                     }),
+                    const Text("Sobre",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
+                    ],)
               ],
             ),
           ),
