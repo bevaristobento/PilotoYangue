@@ -29,6 +29,7 @@ final TextEditingController _nomeController = TextEditingController();
 AuthenticionServico _authServico = AuthenticionServico();
 
 class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
+  bool _senhaVisivel = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,10 +88,24 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                       ),
                       TextFormField(
                         controller: _senhaController,
-                        decoration: getAuthenticationInputDecoration("senha"),
-                        obscureText: true,
+                        decoration:
+                            getAuthenticationInputDecoration('senha').copyWith(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _senhaVisivel
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _senhaVisivel = !_senhaVisivel;
+                              });
+                            },
+                          ),
+                        ),
+                        obscureText: !_senhaVisivel,
                         validator: (String? value) {
-                          if (value == null) {
+                          if (value == null || value.isEmpty) {
                             return "O este não pode estar vazio";
                           }
 
@@ -177,10 +192,11 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                       
                       const Divider(),
                       ElevatedButton.icon(
                         icon: Image.asset(
-                          'assets/logo.png',
+                          'assets/logo1.png',
                           height: 24,
                           width: 24,
                         ),

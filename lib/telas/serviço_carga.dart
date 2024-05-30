@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piloto_yangue1/componentes/decoration.dart';
+import 'package:piloto_yangue1/telas/home_piloto.dart';
 
 class ServicosCargas extends StatelessWidget {
   const ServicosCargas({super.key});
@@ -25,36 +26,16 @@ class ServicosCargas extends StatelessWidget {
               ],
             )),
         drawer: Drawer(
-          backgroundColor: Color.fromARGB(255, 239, 243, 6),
+          backgroundColor:  Colors.yellowAccent,
           child: ListView(
             children: [
               ListTile(
                 leading: const Icon(Icons.local_shipping_outlined),
-                title: const Text("Serviços de cargas"),
-                onTap: () {},
+                title: const Text("Home Piloto"),
+                onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePiloto(),));
+                }
               ),
-              ListTile(
-                leading: const Icon(Icons.app_registration_outlined),
-                title: const Text("Registros"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.account_circle_outlined),
-                title: const Text("Conta"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.info_outlined),
-                title: const Text("Sobre"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text("Deslogar"),
-                onTap: () {
-            //    Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticionPiloto()));
-                },
-              ),
+             
             ],
           ),
         ),

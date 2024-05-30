@@ -13,17 +13,17 @@ dependencies:
 
   flutter:
     sdk: flutter
+  liquid_pull_refresh: any
+  flutter_map: any
+  geolocator: any
   provider: ^6.1.2
   latlong2: ^0.9.1
   flutter_native_splash:  
-  flutter_map_location_marker: any
   google_sign_in: ^6.0.0
 
   cupertino_icons: ^1.0.6
-  flutter_map: any
   firebase_core: ^2.25.5
   firebase_auth: ^4.17.6
-  location: ^6.0.2
   
 
 dev_dependencies:

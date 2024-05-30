@@ -7,7 +7,7 @@ class Registros extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         backgroundColor: const Color.fromARGB(255, 228, 231, 6),
+         backgroundColor:  Colors.yellowAccent,
             title: Row(
               children: [
                 Image.asset(
@@ -18,45 +18,12 @@ class Registros extends StatelessWidget {
                   width: 8,
                 ),
                 const Text(
-                  "Piloto Yangue",
+                  "Registro",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             )),
-        drawer: Drawer(
-          backgroundColor: Color.fromARGB(255, 239, 243, 6),
-          child: ListView(
-            children: [
-              ListTile(
-                leading: const Icon(Icons.local_shipping_outlined),
-                title: const Text("Serviços de cargas"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.app_registration_outlined),
-                title: const Text("Registros"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.account_circle_outlined),
-                title: const Text("Conta"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.info_outlined),
-                title: const Text("Sobre"),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text("Deslogar"),
-                onTap: () {
-            //    Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticionPiloto()));
-                },
-              ),
-            ],
-          ),
-        ),
+       
         body: const Center (
           child:  Text(""),
         ),
