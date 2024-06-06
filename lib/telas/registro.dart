@@ -7,7 +7,7 @@ class Registros extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         backgroundColor:  Colors.yellowAccent,
+         backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
             title: Row(
               children: [
                 Image.asset(

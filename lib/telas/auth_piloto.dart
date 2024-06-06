@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:piloto_yangue1/comun/cores_piloto.dart';
 import 'package:piloto_yangue1/comun/my_snackbar.dart';
 import 'package:piloto_yangue1/servicos/auth_servico.dart';
 import 'package:piloto_yangue1/telas/home_piloto.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthenticionPiloto extends StatefulWidget {
   const AuthenticionPiloto({super.key});
@@ -18,6 +19,7 @@ class AuthenticionPiloto extends StatefulWidget {
   State<AuthenticionPiloto> createState() => _AuthenticionPilotoState();
 }
 
+FirebaseFirestore db = FirebaseFirestore.instance;
 bool querorEntrar = true;
 
 final _formkey = GlobalKey<FormState>();
@@ -70,11 +72,11 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                         decoration: getAuthenticationInputDecoration("email"),
                         validator: (String? value) {
                           if (value == null) {
-                            return "O este não pode estar vazio";
+                            return " este campo não pode estar vazio";
                           }
 
                           if (value.length < 5) {
-                            return "O e-mail é muito curto ";
+                            return "O e-mail é muito curto, preencha esse campo ";
                           }
 
                           if (!value.contains("@")) {
@@ -106,7 +108,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                         obscureText: !_senhaVisivel,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return "O este não pode estar vazio";
+                            return " este campo não pode estar vazio";
                           }
 
                           if (value.length < 5) {
@@ -129,7 +131,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                                   getAuthenticationInputDecoration("nome"),
                               validator: (String? value) {
                                 if (value == null) {
-                                  return "O este não pode estar vazio";
+                                  return "este campo não pode estar vazio";
                                 }
 
                                 if (value.length < 5) {
@@ -147,7 +149,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                       ),
                       ElevatedButton(
                           onPressed: () async {
-                            var resposta = await botaoPrincipalClicado();
+                            var resposta = await botaoPrincipalClicado(context);
                             if (resposta != null) {
                               Navigator.push(
                                   context,
@@ -192,7 +194,6 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                       
                       const Divider(),
                       ElevatedButton.icon(
                         icon: Image.asset(
@@ -234,6 +235,17 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
     );
   }
 
+  // criando a colecçao
+  void sendData() {
+    String id = Uuid().v1();
+    db.collection("cadastro passageiro").doc(id).set({
+      "email": _emailController.text,
+      "senha": _senhaController.text,
+      "nome": _nomeController.text,
+    });
+  }
+
+// metodo pra entrar com a google cadastro e login
   Future<User?> _signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -253,7 +265,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
     }
   }
 
-  Future<UserCredential?> botaoPrincipalClicado() async {
+  Future<UserCredential?> botaoPrincipalClicado(BuildContext context) async {
     String nome = _nomeController.text;
     String email = _emailController.text;
     String senha = _senhaController.text;
@@ -309,6 +321,10 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
 
           mostrarSnackBar(context: context, texto: msg);
         });
+        // ignore: unnecessary_null_comparison
+        if (resposta != null) {// a função senddata receberá enviará os  dados caso cadastro for feito com exito
+          sendData();
+        } 
 
         return resposta;
 

@@ -9,7 +9,7 @@ class ServicosCargas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-         backgroundColor: const Color.fromARGB(255, 228, 231, 6),
+         backgroundColor: const Color.fromARGB(255, 255, 187, 0),
             title: Row(
               children: [
                 Image.asset(
@@ -26,7 +26,7 @@ class ServicosCargas extends StatelessWidget {
               ],
             )),
         drawer: Drawer(
-          backgroundColor:  Colors.yellowAccent,
+          backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
           child: ListView(
             children: [
               ListTile(
@@ -75,7 +75,7 @@ class ServicosCargas extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color.fromARGB(255, 255, 187, 0),
+                                    backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 50,
                                       vertical: 15,

@@ -11,7 +11,7 @@ class Contas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 228, 231, 6),
+            backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
             title: Row(
               children: [
                 Image.asset(
@@ -31,7 +31,7 @@ class Contas extends StatelessWidget {
           heightLoader: 200,
           showChildOpacityTransition: false,
           color: const Color.fromARGB(255, 0, 0, 0),  // Cor da parte traseira do efeito de refresh
-          backgroundColor: Colors.yellowAccent,
+          backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
           onRefresh: () async {
             await Future.delayed(const Duration(seconds: 2));
           },
@@ -41,7 +41,7 @@ class Contas extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Card(
-                    color:const Color.fromARGB(255, 255, 187, 1),
+                    color: const Color.fromARGB(255, 255, 187, 0),
                       child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Container(

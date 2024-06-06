@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-// ignore: unused_import, avoid_web_libraries_in_flutter
-import 'dart:js';
 // ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +9,17 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:piloto_yangue1/componentes/decoration.dart';
+// ignore: unused_import
 import 'package:piloto_yangue1/telas/auth_piloto.dart';
 import 'package:piloto_yangue1/telas/contas.dart';
+// ignore: unused_import
 import 'package:piloto_yangue1/telas/registro.dart';
 import 'package:piloto_yangue1/telas/servi%C3%A7o_carga.dart';
 import 'package:piloto_yangue1/telas/sobre.dart';
 
 class HomePiloto extends StatelessWidget {
   Future<Position> getLocation() async {
+    await Geolocator.requestPermission();
     var position = await Geolocator.getCurrentPosition();
     return position;
   }
@@ -29,7 +30,8 @@ class HomePiloto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.yellowAccent,
+          automaticallyImplyLeading: false,
+          backgroundColor:  const Color.fromARGB(255, 255, 187, 0),
           title: Row(
             children: [
               Image.asset(
@@ -46,7 +48,19 @@ class HomePiloto extends StatelessWidget {
             ],
           )),
       body: FutureBuilder<Position>(
+        future:getLocation(),
+
         builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {//ConnectionState.waiting: Mostra um CircularProgressIndicator enquanto o Future está sendo resolvido.
+              return Center(child: Text("aguarde um pouco"));
+            } else if(snapshot.hasError) {//napshot.hasError: Mostra uma mensagem de erro se o Future falhar.
+              return Center(child: Text('Erro: ${snapshot.error}'));
+            }else if(!snapshot.hasData || snapshot.data == null){//!snapshot.hasData || snapshot.data == null: Mostra uma mensagem informando que não há dados disponíveis se o Future não retornar dados.
+  return const Center(child: Text('Nenhum dado disponível'));
+            } else{
+
+    // ignore: unused_local_variable
+    var position=snapshot.data!;
           return FlutterMap(
               options: MapOptions(
                 initialCenter:
@@ -63,7 +77,7 @@ class HomePiloto extends StatelessWidget {
                           snapshot.data!.latitude, snapshot.data!.longitude),
                       child: const Icon(
                         Icons.circle,
-                        color: Colors.yellow,
+                        color: const Color.fromARGB(255, 255, 187, 0),
                       )),
                   const Marker(
                       point: LatLng(-8.8567788, 13.3434885),
@@ -84,9 +98,10 @@ class HomePiloto extends StatelessWidget {
                     ),
                   ],
                 ),
-              ]);
-        },
-        future: getLocation(),
+              ]
+              );
+               }
+      },
       ),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -175,7 +190,7 @@ class HomePiloto extends StatelessWidget {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 255, 187, 0),
+                                 const Color.fromARGB(255, 255, 187, 0),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 40,
                               vertical: 15,
@@ -201,81 +216,84 @@ class HomePiloto extends StatelessWidget {
         },
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
-        child: const Icon(Icons.search, color: Colors.yellowAccent,),
+        child: const Icon(
+          Icons.search,
+          color:  const Color.fromARGB(255, 255, 187, 0),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        color: Colors.yellowAccent,
+        color: const Color.fromARGB(255, 255, 187, 0),
         child: IconTheme(
           data: IconThemeData(color: Colors.black),
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(mainAxisSize: MainAxisSize.min,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-
-              
-               Column(mainAxisSize: MainAxisSize.min,
-                children: [ IconButton(
-                    icon: const Icon(Icons.home),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePiloto(),
-                          ));
-                    }),
-                 const   Text("Home",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
-  ],),
-  ],),
-  
-                     Column(mainAxisSize: MainAxisSize.min,
-                      children: [  IconButton(
-                    icon: const Icon(Icons.local_shipping),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ServicosCargas()));
-                    }),
-                    const Text("S. Cargas",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
-                    ],),
-                     const SizedBox(
-                  width: 24,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            icon: const Icon(Icons.home_filled,size: 30),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePiloto(),
+                                  ));
+                            }),
+                      
+                      ],
+                    ),
+                  ],
                 ),
-               Column(mainAxisSize: MainAxisSize.min,
-                children: [ IconButton(
-                    icon: const Icon(Icons.edit_document),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Registros()));
-                    }),
-                     const Text("Registros",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
-                    ],),
-                 const SizedBox(
-                  width: 24,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        icon: const Icon(Icons.local_shipping,size: 30),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ServicosCargas()));
+                        }),
+                    
+                  ],
                 ),
-               Column(mainAxisSize: MainAxisSize.min,
-                children: [ IconButton(
-                    icon: const Icon(Icons.person),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Contas()));
-                    }),
-                    const Text("Perfil",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
-                    ],),
-              Column(mainAxisSize: MainAxisSize.min,
-                children: [  IconButton(
-                    icon: const Icon(Icons.info),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Sobre()));
-                    }),
-                    const Text("Sobre",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)
-                    ],)
+                const SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        icon: const Icon(Icons.person,size: 30,),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contas()));
+                        }),
+                    
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        icon: const Icon(Icons.info,size: 30),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Sobre()));
+                        }),
+                    
+                  ],
+                )
               ],
             ),
           ),
@@ -283,4 +301,7 @@ class HomePiloto extends StatelessWidget {
       ),
     );
   }
+}
+
+class CircularProgressIndicato {
 }

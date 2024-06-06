@@ -25,7 +25,7 @@ class _EscolhaOpcaoState extends State<EscolhaOpcao> {
             height: double.infinity,
           ),
           Container(
-            color: Colors.black.withOpacity(0.8),
+            color: Colors.black.withOpacity(0.6),
              width: double.infinity,
             height: double.infinity,
           ),
@@ -35,7 +35,7 @@ class _EscolhaOpcaoState extends State<EscolhaOpcao> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 247, 222, 3),
+                      backgroundColor: const Color.fromARGB(255, 255, 187, 0),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 20),
                       textStyle: const TextStyle(
@@ -59,7 +59,7 @@ class _EscolhaOpcaoState extends State<EscolhaOpcao> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 248, 224, 3),
+                      backgroundColor: const Color.fromARGB(255, 255, 187, 0),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 60,
                         vertical: 20,
