@@ -31,6 +31,7 @@ final TextEditingController _nomeController = TextEditingController();
 AuthenticionServico _authServico = AuthenticionServico();
 
 class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
+  
   bool _senhaVisivel = false;
   @override
   Widget build(BuildContext context) {
