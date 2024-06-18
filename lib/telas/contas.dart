@@ -37,7 +37,7 @@ class _ContasState extends State<Contas> {
 .get(); 
 if (userData.exists) {
   setState(() {
-  userName=userData['name:'];
+  userName=userData['nome'];
 }); 
   
 }  }

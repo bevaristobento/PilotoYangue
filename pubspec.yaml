@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   liquid_pull_refresh: any
-  flutter_map: any
+  flutter_osm_plugin:
   geolocator: any
   provider: ^6.1.2
   latlong2: ^0.9.1
@@ -22,12 +22,14 @@ dependencies:
   google_sign_in: ^6.0.0
   curved_navigation_bar: ^1.0.5
   font_awesome_flutter: ^10.1.0
+  animated_text_kit: ^4.2.2
 
   cupertino_icons: ^1.0.6
   firebase_core: ^2.25.5
   firebase_auth: ^4.17.6
   cloud_firestore: any
   image_picker: ^0.8.7
+  route_transitions: ^2.0.1
   uuid: ^4.4.0
   
 

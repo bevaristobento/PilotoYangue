@@ -3,7 +3,6 @@ import 'package:piloto_yangue1/telas/escolha.dart';
 // ignore: unused_import
 import 'package:provider/provider.dart';
 // ignore: unused_import
-import 'package:flutter_map/flutter_map.dart';
 // ignore: unused_import
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

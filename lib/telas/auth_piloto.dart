@@ -83,6 +83,13 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                           if (!value.contains("@")) {
                             return "O e-mail não é válido ";
                           }
+
+                          if(!value.contains("gmail.com")){
+                             return "o e-mail não está completo "; 
+                          }
+                          if(value != value.toLowerCase()){
+                             return "o e-mail deve conter apenas letras Minúsculas "; 
+                          }
                           return null;
                         },
                       ),
@@ -135,7 +142,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
                                   return "este campo não pode estar vazio";
                                 }
 
-                                if (value.length < 5) {
+                                if (value.length <10) {
                                   return "O nome é muito curto ";
                                 }
 
@@ -290,6 +297,7 @@ class _AuthenticionPilotoState extends State<AuthenticionPiloto> {
             msg = "Palavra passe errada";
           }
 
+          // ignore: use_build_context_synchronously
           mostrarSnackBar(context: context, texto: msg);
           return null;
         });

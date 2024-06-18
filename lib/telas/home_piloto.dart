@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
@@ -30,9 +30,9 @@ class _HomePilotoState extends State<HomePiloto> {
   final List<Widget> _pages = [
     //Criei uma lista _pages que contém as diferentes telas para serem exibidas
     HomePilotoPage(),
-   ServicosCargas(),
-     Contas(),
-     Sobre(),
+    ServicosCargas(),
+    Contas(),
+    Sobre(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class _HomePilotoState extends State<HomePiloto> {
             context: context,
             builder: (ctx) {
               return SizedBox(
-                height: 300,
+                height: 1000,
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
@@ -116,6 +116,16 @@ class _HomePilotoState extends State<HomePiloto> {
                         height: 8,
                       ),
                       TextFormField(
+                        onTap: () async {
+                          GeoPoint? p = await showSimplePickerLocation(
+                            context: context,
+                            isDismissible: true,
+                            title: "Title dialog",
+                            textConfirmPicker: "pick",
+                            initCurrentUserPosition:
+                                UserTrackingOption(enableTracking: true),
+                          );
+                        },
                         keyboardType: TextInputType.emailAddress,
                         decoration: getAuthenticationInputDecoration("Destino"),
                       ),
@@ -218,7 +228,7 @@ class _HomePilotoState extends State<HomePiloto> {
             Icons.home_filled,
             size: 30,
           ),
-          Icon( FontAwesomeIcons.motorcycle, size: 30),
+          Icon(FontAwesomeIcons.motorcycle, size: 30),
           Icon(Icons.person_2_outlined, size: 30),
           Icon(Icons.info_outline, size: 30),
         ],
@@ -253,9 +263,29 @@ class _HomePilotoState extends State<HomePiloto> {
 
 class HomePilotoPage extends StatelessWidget {
   Future<Position> getLocation() async {
-    await Geolocator.requestPermission();
-    var position = await Geolocator.getCurrentPosition();
-    return position;
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Verifica se o serviço de localização está habilitado.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Serviço de Localização está desabilitada.');
+    }
+ // Verifica o status da permissão de localização.
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+       if (permission == LocationPermission.denied) {
+      return Future.error('permissão de localização negada.');
+    }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('permissão de localização permanentemente negada.');
+      
+    }
+    // Quando a permissão de localização é concedida, pega a localização atual.
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
@@ -277,44 +307,48 @@ class HomePilotoPage extends StatelessWidget {
         } else {
           // ignore: unused_local_variable
           var position = snapshot.data!;
-          return FlutterMap(
-              options: MapOptions(
-                initialCenter:
-                    LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
-                initialZoom: 15,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          return OSMFlutter(
+            controller: MapController(
+              initPosition: GeoPoint(
+                  latitude: position.latitude, longitude: position.longitude),
+            ),
+            osmOption: OSMOption(
+                userTrackingOption: const UserTrackingOption(
+                    enableTracking: true, unFollowUser: false),
+                zoomOption: const ZoomOption(
+                  initZoom: 8,
+                  minZoomLevel: 8,
+                  maxZoomLevel: 19,
                 ),
-                MarkerLayer(markers: [
-                  Marker(
-                      point: LatLng(
-                          snapshot.data!.latitude, snapshot.data!.longitude),
-                      child: const Icon(
-                        Icons.location_on_sharp,
-                        color: const Color.fromARGB(255, 255, 187, 0),
-                      )),
-                  const Marker(
-                      point: LatLng(-8.8567788, 13.3434885),
-                      child: Icon(
-                        Icons.location_on_sharp,
-                        color: Color.fromARGB(255, 216, 0, 0),
-                      ))
-                ]),
-                PolylineLayer(
-                  polylines: [
-                    Polyline(
-                      points: [
-                        LatLng(
-                            snapshot.data!.latitude, snapshot.data!.longitude),
-                        const LatLng(-8.8567788, 13.3434885),
-                      ],
-                      color: Colors.blue,
+                userLocationMarker: UserLocationMaker(
+                  personMarker: const MarkerIcon(
+                    
+                    icon: Icon(
+                      Icons.location_history_outlined,
+                      color: Colors.red,
+                      size: 48,
                     ),
-                  ],
+                  ),
+                  directionArrowMarker: const MarkerIcon(
+                    icon: Icon(
+                      Icons.double_arrow,
+                      size: 48,
+                    ),
+                  ),
                 ),
-              ]);
+                roadConfiguration: const RoadOption(roadColor: Colors.yellowAccent),
+                markerOption: MarkerOption( 
+                    defaultMarker: const MarkerIcon(
+                      
+                  icon: Icon(
+                    Icons.person_pin_circle,
+                    color: Colors.blue,
+                    size: 56,
+                  ),
+                ),
+                ),
+                ),
+          );
         }
       },
     );
